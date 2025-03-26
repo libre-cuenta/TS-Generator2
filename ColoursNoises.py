@@ -8,7 +8,7 @@ def plot_spectrum(s):
 def noise_psd(N, noise_std, dtype=[float, int], psd = lambda f: 1):
     X_white = np.fft.rfft(np.random.normal(0, noise_std, N))
     S = psd(np.fft.rfftfreq(N))
-    # Normalize S
+    # Нормализация S
     S = S / np.sqrt(np.mean(S))
     X_shaped = X_white * S
     Y = np.fft.irfft(X_shaped)
