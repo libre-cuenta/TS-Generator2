@@ -224,7 +224,30 @@ class SEASON:
         for x in time:
             Y.append((a0 + np.sin(f*x))*np.sin(x))
         return Y
+    
+    @classmethod
+    @SEASONGenerator
+    def moduling_signal2(cls, time, alpha=1, beta=1):
+        Y = list()
+        for x in time:
+            Y.append( np.sin(alpha*x)*np.cos(beta*x) )
+        return Y
 
+    @classmethod
+    @SEASONGenerator
+    def weierstrass(cls, time, N, alpha=1, beta=1):
+        Y = list()
+        # Проверка входных данных
+        if not ((type(alpha) == int or type(alpha) == float) and (type(beta) == int or type(beta) == float)):
+            raise ValueError("Неправильный тип данных alpha и beta")
+        for x in time:
+            season = 0
+            for i in range(1, N+1):
+                season += (alpha**i)*np.cos((beta**i)*np.pi*x)
+            Y.append(season)
+
+        return Y
+    
 
     @classmethod
     def plot_season(cls, x, s, color='#fa5500'):
